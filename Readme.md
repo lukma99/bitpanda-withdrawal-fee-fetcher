@@ -16,3 +16,10 @@ Sadly, the fees are only shown in BTC, and they change regularly. It is not conv
 To make things easier, I developed this tool.
 
 ![Picture of tool](./img/screenshot.jpg?raw=true "Optional Title")
+
+
+## Run the application
+1. Install maven dependencies
+2. Build the main.java file
+3. ?
+4. profit
