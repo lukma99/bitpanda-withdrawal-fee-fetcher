@@ -5,7 +5,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.swing.*;
 
 
@@ -40,7 +45,7 @@ public class main {
     /**
      * Creates all elements for the GUI and arranges them
      */
-    public static void initializeGui(){
+    public static void initializeGui() {
         // Create frame
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +63,7 @@ public class main {
         jPanelMain.add(jPanelTop);
 
         JPanel jPanelBottom = new JPanel();
-        jPanelBottom.setLayout(new java.awt.GridLayout(2, 1));
+        jPanelBottom.setLayout(new java.awt.GridLayout(3, 1));
         jPanelMain.add(jPanelBottom);
 
 
@@ -85,8 +90,33 @@ public class main {
         buttonReload.addActionListener(e -> run()); // Add Click Event
         jPanelBottom.add(buttonReload);
 
-        JLabel disclaimer = new JLabel("<html>This tool is NOT an official tool by Bitpanda.<br>No guarantee for correct data.");
-        jPanelBottom.add(disclaimer);
+        // Disclaimer
+        JLabel labelDisclaimer = new JLabel("<html>This tool is NOT an official tool by Bitpanda.<br>" +
+                "No guarantee for correct data.<br></html>");
+        jPanelBottom.add(labelDisclaimer);
+
+
+        // Link to CoinDesk, because they demand it here (https://www.coindesk.com/coindesk-api) if you use their API
+        JLabel labelCoinDeskLink = new JLabel("<html>API for BTC price is Powered by <a href=\"https://www.coindesk.com/price/bitcoin\">CoinDesk</a></html>");
+        labelCoinDeskLink.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://www.coindesk.com/price/bitcoin"));
+                } catch (IOException | URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+        jPanelBottom.add(labelCoinDeskLink);
 
 
         frame.pack();
