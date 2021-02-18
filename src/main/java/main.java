@@ -16,9 +16,9 @@ import javax.swing.*;
 
 public class main {
 
-    static float currentPrice; // Current price of bitcoin in EUR
+    static int currentPrice; // Current price of bitcoin in EUR
     static OkHttpClient client = new OkHttpClient();
-    final static String BITCOIN_PRICE_ENDPOINT = "https://api.coindesk.com/v1/bpi/currentprice.json";
+    final static String BITCOIN_PRICE_ENDPOINT = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=eur";
     final static String BITPANDA_FEES_ENDPOINT = "https://www.bitpanda.com/de/limits";
 
 
@@ -63,7 +63,7 @@ public class main {
         jPanelMain.add(jPanelTop);
 
         JPanel jPanelBottom = new JPanel();
-        jPanelBottom.setLayout(new java.awt.GridLayout(3, 1));
+        jPanelBottom.setLayout(new java.awt.GridLayout(2, 1));
         jPanelMain.add(jPanelBottom);
 
 
@@ -94,30 +94,6 @@ public class main {
         JLabel labelDisclaimer = new JLabel("<html>This tool is NOT an official tool by Bitpanda.<br>" +
                 "No guarantee for correct data.<br></html>");
         jPanelBottom.add(labelDisclaimer);
-
-
-        // Link to CoinDesk, because they demand it here (https://www.coindesk.com/coindesk-api) if you use their API
-        JLabel labelCoinDeskLink = new JLabel("<html>API for BTC price is Powered by <a href=\"https://www.coindesk.com/price/bitcoin\">CoinDesk</a></html>");
-        labelCoinDeskLink.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    Desktop.getDesktop().browse(new URI("https://www.coindesk.com/price/bitcoin"));
-                } catch (IOException | URISyntaxException e1) {
-                    e1.printStackTrace();
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        jPanelBottom.add(labelCoinDeskLink);
-
 
         frame.pack();
     }
@@ -159,7 +135,7 @@ public class main {
      */
     private static void parseBitcoinPrice(String str) {
         JSONObject jsonObject = new JSONObject(str);
-        currentPrice = jsonObject.getJSONObject("bpi").getJSONObject("EUR").getFloat("rate_float");
+        currentPrice = jsonObject.getJSONObject("bitcoin").getInt("eur");
         tfBtcPriceInEur.setText(currentPrice + " EUR");
     }
 

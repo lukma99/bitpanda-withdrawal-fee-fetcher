@@ -3,8 +3,6 @@
 ## Disclaimer
 **This tool is NOT developed by Bitpanda and has no guarantee for correct data. Please use it carefully.**
 
-API is Powered by [CoinDesk](https://www.coindesk.com/price/bitcoin)
-
 This tool is not commercial in any means!
 
 ## About this tool
